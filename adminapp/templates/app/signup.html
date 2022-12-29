@@ -1,0 +1,43 @@
+{% load static %}
+{% block title %}Signup{% endblock title %}
+{% block main-content %}
+
+<section class="h-100 h-custom" style="width:23rem; margin-left:40rem">
+    <div class="container py-5 h-50">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-8 col-xl-6">
+          <div class="card rounded-3">
+            <div class="card-body p-4 p-md-5">
+              <form class="px-md-2" action="{% url 'registraion' %}" method="post">
+                {% csrf_token %}
+                      <h3>Customer Registration Form </h1>
+                        <hr>
+                        <center>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="username">UseName</label><br>
+                  <input type="text" id="username" name="username" class="form-control" /><br>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="email">Email</label><br>
+                  <input type="text" id="email" name="email" class="form-control" /><br>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="password">Password</label><br>
+                  <input type="password" id="password" name="password" class="form-control" /><br>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="confirm_password">Confirm Password</label><br>
+                  <input type="password" id="confirm_password" name="confirm_password" class="form-control" /><br>
+                </div>
+                <br>
+                <center><button type="submit" class="btn btn-success btn-lg mb-1">Submit</button></center><br>
+                <h5><p class="mb-5 pb-lg-2" style="color: #61939a;"> have already an account? <a href="{% url 'signin' %}"
+                  style="color: #61939a;">Login here</a></p></h5></center>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock main-content %}
