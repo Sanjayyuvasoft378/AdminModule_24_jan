@@ -1,9 +1,12 @@
+from django.contrib import admin
 from django.urls import path
-from adminapp import views
+
+from adminapp.views import LoginView, RegisterView, HomeView
+
+
 urlpatterns = [
-    path('signup/',views.signup,name='signup'),
-    path('signin/',views.login,name='signin'),
-    path('home/',views.home,name='home'),
-    path('registration/',views.UserRegistrationAPI.as_view(),name='registraion'),
-    path('login/',views.LoginAPI.as_view(),name='login'),
+    path('admin/', admin.site.urls),
+    path('login/', LoginView.as_view(), name='login'),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('home/', HomeView.as_view(), name='home'),
 ]

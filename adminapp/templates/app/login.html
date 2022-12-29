@@ -1,34 +1,7 @@
-{% load static %}
-{% block title %}Login{% endblock title %}
-{% block main-content %}
+<h1>Login</h1>
 
-<section class="h-100 h-custom" style="width:23rem; margin-left:40rem">
-    <div class="container py-5 h-50">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-lg-8 col-xl-6">
-          <div class="card rounded-3">
-            <div class="card-body p-4 p-md-5">
-              <form class="px-md-2" action="{% url 'login' %}" method="post">
-                {% csrf_token %}
-                      <h3>Customer Login Form </h1>
-                        <hr>
-                        <center>
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="email">UserName / Email</label><br>
-                  <input type="text" id="email" name="email" class="form-control" /><br>
-                </div>
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="password">Password</label><br>
-                  <input type="password" id="password" name="password" class="form-control" /><br>
-                </div><br>
-                <center><button type="submit" class="btn btn-success btn-lg mb-1">Submit</button></center><br>
-                <h5><p class="mb-5 pb-lg-2" style="color: #61939a;"> New User <a href="{% url 'login' %}"
-                  style="color: #61939a;">Create an Account here</a></p></h5></center>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  {% endblock main-content %}
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" id="submit">Login</button>
+</form>

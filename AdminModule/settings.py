@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,9 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'adminapp',
+    'adminapp.apps.AdminappConfig',
     'rest_framework',
+    'allauth'
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -100,7 +105,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+AUTH_USER_MODEL = "adminapp.CustomUser"
 
+AUTHENTICATION_BACKENDS = ['adminapp.renderers.EmailBackend'] # new
+
+LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/adminapp/home/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
