@@ -1,0 +1,77 @@
+.goodnessseccont img {
+    width: 100%;
+    height: 12rem;
+}
+
+.buttermilk{
+    background-color:#fff;background-image:linear-gradient(#fff7ef, #fff);
+    background-image:-webkit-linear-gradient(#fff7ef,  rgb(61, 55, 55));
+    background-image:-moz-linear-gradient(#fff7ef, #fff);
+    background-image:-ms-linear-gradient(#fff7ef, #fff);
+    background-image:-o-linear-gradient(#fff7ef, #fff);
+    padding:50px 40px;
+    border:1px solid #efe8e1;
+    padding-bottom:20px;
+}
+
+.smbg{
+    background-color:#fff;
+    background-image:linear-gradient(rgba(110, 69, 143, 0.1), #fff);
+    background-image:-webkit-linear-gradient(rgba(110, 69, 143, 0.1), rgb(61, 55, 55));
+    background-image:-moz-linear-gradient(rgba(110, 69, 143, 0.1), #fff);
+    background-image:-ms-linear-gradient(rgba(110, 69, 143, 0.1), #fff);
+    background-image:-o-linear-gradient(rgba(110, 69, 143, 0.1), #fff);
+}
+
+.curdbgpro{
+    background-color:#fff;
+    background-image:linear-gradient(rgba(10, 77, 123, 0.1), #fff);
+    background-image:-webkit-linear-gradient(rgba(10, 77, 123, 0.1), rgb(61, 55, 55));
+    background-image:-moz-linear-gradient(rgba(10, 77, 123, 0.1), #fff);
+    background-image:-ms-linear-gradient(rgba(10, 77, 123, 0.1), #fff);
+    background-image:-o-linear-gradient(rgba(10, 77, 123, 0.1), #fff);
+}
+
+
+.mlkpro{
+    color:hsl(245, 100%, 3%);
+    font-size:22px;
+    line-height:22px;
+    margin-bottom:15px;
+    width:43%;
+    margin:0 auto;
+    text-align:center;
+    
+}
+
+.goodnesssec a{
+    text-decoration: none;
+}
+
+.row{
+    margin-top: 2rem;
+}
+.text-center{
+    margin-top: 2rem;
+}
+
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+    }
+
+/* .contact_us {
+        width: 75rem; 
+        margin-left:28rem; 
+        height:42rem; 
+        padding-left:2rem; 
+        box-shadow: 5px 5px 5px 5px;
+    
+} */

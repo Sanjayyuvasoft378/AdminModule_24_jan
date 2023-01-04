@@ -7,6 +7,12 @@ from django.contrib.auth.models import  AbstractUser
 class CustomUser(AbstractUser):
     email = models.EmailField(verbose_name='email',
                               max_length=255, unique=True)
+    
+class Plan(models.Model):
+    planId = models.CharField(max_length=20, unique=True)    
+    planName = models.CharField(max_length=100,unique=True)
+    price = models.IntegerField()
+    
     # name = models.CharField(max_length=250)
     # tc = models.BooleanField()
     # is_active = models.BooleanField(default=True)

@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from django import forms
+# from .models import Category
 
 
 class RegisterForm(UserCreationForm):
@@ -11,3 +12,10 @@ class RegisterForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Email / Username')
+
+
+class PlanForm(forms.Form):
+    class Meta:
+        fields = '__all__'
+# class AddressForm(forms.Form):
+

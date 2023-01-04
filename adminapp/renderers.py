@@ -1,6 +1,10 @@
 from urllib import response
 from rest_framework import renderers
 import json
+from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth import get_user_model
+from django.db.models import Q
+
 
 class UserRenderer(renderers.JSONRenderer):
     charset='utf-8'
@@ -12,10 +16,6 @@ class UserRenderer(renderers.JSONRenderer):
             response = json.dumps(data)
         return response
 
-
-from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth import get_user_model
-from django.db.models import Q
 
 
 UserModel = get_user_model()

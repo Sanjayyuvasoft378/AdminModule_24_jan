@@ -1,12 +1,16 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 
-from adminapp.views import LoginView, RegisterView, HomeView
+from adminapp.views import *
+from adminapp import views,stripe
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
+    path('logout/',views.logout,name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
-    path('home/', HomeView.as_view(), name='home'),
+    path('home/', stripe.HomeView, name='home'),
+    # path('category/', CategoryView.as_view(), name='category'),
+    # path('stripe_data/',stripe.stripe_data,name='stripe_data'),
+    path('plan/',PlanAPI.as_view(),name='plan'),
 ]
