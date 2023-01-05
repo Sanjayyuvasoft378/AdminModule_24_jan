@@ -3,7 +3,7 @@
 {% block title %}Home Page{% endblock title %}
 {% block main-content %}
 <div class="container" >
-    <h2 class="text-center">Stripe Plan</h2><br><Br>
+    <h2 class="text-center">####Plans####</h2><br><Br>
     <div class  ="row">
         <div class="col">
           <div class="text-center">
@@ -17,7 +17,7 @@
                       <h2>{{ get_data.planName }}</h2>
                       <h3>{{ get_data.price }}<h3>
                     </ul>
-                        <button type="button" class="btn btn-primary"                       data-bs-toggle="modal" data-bs-target="#freeplan">Select Plan</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#freeplan">Select Plan</button>
                         
                   </div>
                 </div>
@@ -66,9 +66,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h2>planId: {{ get_data.planId }}
-        <h2>planName: {{ get_data.planName }}
-         <h2>price: {{ get_data.price }}
+        <h2>planId: {{ get_data.planId }}</h2>
+        <h2>planName: {{ get_data.planName }}</h2>
+         <h2>price: {{ get_data.price }}</h2>
          </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -92,7 +92,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary">Buy Now</button>
         </div>
     </div>
   </div>
@@ -102,17 +102,17 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="standardplanid">Free plan</h5>
+        <h5 class="modal-title" id="standardplanid">Standard plan</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h2>planId: {{ get_standard.planId }}
-        <h2>planName: {{ get_standard.planName }}
-         <h2>price: {{ get_standard.price }}
+        <h2>planId: {{ get_standard.planId }}</h2>
+        <h2>planName: {{ get_standard.planName }}</h2>
+         <h2>price: {{ get_standard.price }}</h2>
          </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary">Buy Now</button>
       </div>
     </div>
   </div>

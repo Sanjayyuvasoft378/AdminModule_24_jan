@@ -13,4 +13,13 @@ urlpatterns = [
     # path('category/', CategoryView.as_view(), name='category'),
     # path('stripe_data/',stripe.stripe_data,name='stripe_data'),
     path('plan/',PlanAPI.as_view(),name='plan'),
+    
+    
+    
+    
+    path('', views.home, name='homes'),
+    path('create-checkout-session/', views.create_checkout_session, name='checkout'),
+    path('success.html/', views.success,name='success'),
+    path('cancel.html/', views.cancel,name='cancel'),
+
 ]

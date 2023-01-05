@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def HomeView(request):
     free = {
-    "planId":"free_012",
+    "planId":"price_1MMsGxSAZLmnjHWeKFrycdfD",
     "planName":'Free',
     "price":0,
     }
@@ -18,5 +18,10 @@ def HomeView(request):
     "planName":"Standard",
     "price":"20$"
     }
-    return render(request,'app/home.html',{"get_data":free,"get_premium":premium,"get_standard":standard})
+    context = {
+            "get_data":free,
+            "get_premium":premium,
+            "get_standard":standard
+            }
+    return render(request,'app/home.html',context)
 

@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     
     'adminapp.apps.AdminappConfig',
     'rest_framework',
+    'stripe',
     
     
     
@@ -69,7 +70,7 @@ ROOT_URLCONF = 'AdminModule.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -168,9 +169,8 @@ SOCIALACCOUNT_PROVIDERS = {
     },
   
 }
-
-
-
+STRIPE_PUBLIC_KEY = "STRIPE_PUBLIC_KEY"
+STRIPE_PRIVATE_KEY = "STRIPE_PRIVATE_KEY"
 LOGIN_REDIRECT_URL = 'home'
 # ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 

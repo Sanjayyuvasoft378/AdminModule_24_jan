@@ -41,15 +41,29 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        {% if user %}
+        {% if form is not None %}
+        <div>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'login' %}">login</a>
+            </li>
+          </ul
+        </div>
+        <div>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'register' %}">register</a>
+            </li>
+          </ul>
+          
+        </div>
+        {% else %}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
             </li>
           </ul>
-
-          
         </div>
         <div>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -59,23 +73,6 @@
           </ul>
          
         </div>
-      {% else %}
-      <div>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">login</a>
-          </li>
-        </ul>
-       
-      </div>
-      <div>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'registration' %}">register</a>
-          </li>
-        </ul>
-       
-      </div>
       {% endif %}
       
     </nav>
