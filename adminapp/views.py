@@ -31,14 +31,6 @@ def logout(request):
     request.session.clear()
     return redirect('login')
 
-class PlanAPI(APIView):
-    def post(self, request):
-        form = PlanForm(data=request.data)
-        if form.is_valid():
-            form.save()
-            return render(request, 'app/plan.html',{"form":form})
-        else:
-            return render(request,'app/home.html')
 
 
 
@@ -86,6 +78,14 @@ def cancel(request):
 
 
 
+class PlanAPI(APIView):
+    def post(self, request):
+        form = PlanForm(data=request.data)
+        if form.is_valid():
+            form.save()
+            return render(request, 'app/plan.html',{"form":form})
+        else:
+            return render(request,'app/home.html')
 
 
 
