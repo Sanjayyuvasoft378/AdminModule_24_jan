@@ -1,4 +1,4 @@
-#!/home/sanjaygupta/Desktop/1dec_project/DRF_Project_13th_dec/Task/AdminModule/myenv/bin/python
+#!/home/sanjaygupta/Downloads/adminmodule/myenv/bin/python
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
