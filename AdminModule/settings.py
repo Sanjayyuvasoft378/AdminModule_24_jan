@@ -26,21 +26,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'adminapp.apps.AdminappConfig',
     'rest_framework',
     'stripe',
-    
-    
-    
+
+
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    
+
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.github',
-    
+
     'crispy_forms',
 
 ]
@@ -49,9 +49,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
-
-
 
 
 MIDDLEWARE = [
@@ -117,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 AUTH_USER_MODEL = "adminapp.CustomUser"
 
-AUTHENTICATION_BACKENDS = ['adminapp.renderers.EmailBackend'] # new
+AUTHENTICATION_BACKENDS = ['adminapp.renderers.EmailBackend']  # new
 (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -152,7 +149,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
 SITE_ID = 1
 
 
@@ -167,11 +163,8 @@ SOCIALACCOUNT_PROVIDERS = {
         },
         'OAUTH_PKCE_ENABLED': True,
     },
-  
-}
-STRIPE_PUBLIC_KEY = ""
-STRIPE_PRIVATE_KEY = ""
 
+}
 
 LOGIN_REDIRECT_URL = 'home'
 # ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
@@ -180,9 +173,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # CRISPY_TEMPLATE_PACK = 'uni_form'
 
 
-# GOOGLE_CLIENT_ID == 
+# GOOGLE_CLIENT_ID ==
 # GOOGLE_CLIENT_SECRET ==
-
 
 
 GITHUB_CLIENT_ID = ""

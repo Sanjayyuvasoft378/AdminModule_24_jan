@@ -19,7 +19,7 @@ urlpatterns = [
     
     path('', views.home, name='homes'),
     path('create-checkout-session/', views.create_checkout_session, name='checkout'),
-    path('success.html/', views.success,name='success'),
+    path('success/', views.success,name='success'),
     path('cancel.html/', views.cancel,name='cancel'),
 
 ]

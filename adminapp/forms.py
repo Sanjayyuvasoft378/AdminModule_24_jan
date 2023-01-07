@@ -19,3 +19,7 @@ class PlanForm(forms.Form):
         fields = '__all__'
 # class AddressForm(forms.Form):
 
+class CustomerForm(forms.Form):
+    class Meta:
+        fields = '__all__'
+

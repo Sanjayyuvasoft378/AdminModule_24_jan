@@ -10,6 +10,10 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
     list_display = ['planId','planName','price']
+    
+@admin.register(CustomerModel)
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ['username','email','password','confirm_password','address']
 
 # @admin.register(CustomUser)
 # class Useradmin(admin.ModelAdmin):

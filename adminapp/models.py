@@ -13,6 +13,20 @@ class Plan(models.Model):
     planName = models.CharField(max_length=100,unique=True)
     price = models.IntegerField()
     
+class CustomerModel(models.Model):
+    username = models.CharField(max_length=220)
+    email = models.EmailField(max_length=255,unique=True)
+    address = models.TextField(max_length=300)
+    password = models.CharField(max_length=15)
+    confirm_password = models.CharField(max_length=15)
+    def __str__(self):
+        return self.username
+
+    
+    
+
+    
+ 
     # name = models.CharField(max_length=250)
     # tc = models.BooleanField()
     # is_active = models.BooleanField(default=True)

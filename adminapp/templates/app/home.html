@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}Home Page{% endblock title %}
 {% block main-content %}
+
 <div class="container" >
     <h2 class="text-center">####Plans####</h2><br><Br>
     <div class  ="row">
@@ -12,59 +13,19 @@
                 style="animation-duration:1s; animation-delay:0.6s;
                 animation-name:none;">
                 <div class="goodnesssec buttermilk smbg" style="width: 20rem;">
-                  {%for i in data %}
-                  {% comment %} Product Name:- <br>
-                  Product Price:-  <br>
-                  Currency:- {{i.currency}} <br>
-                  {% endfor %} {% endcomment %}
-                  <div class="row">
-                    <div class="col">
-                    <ul>
-                      <h4>Plan_Id:- {{i.id}}</4>
-                      <h4>Name:- {{i.name}}</h4>
-                      <h4>Price:- {{i.price_amount}}$<h3><br>
-                    </ul>
-                  </div>
-                </div>
-                    {% endfor %}
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#freeplan">Select Plan</button>
-                        
-                  </div>
+                    <div style="display:flex">
+                      {% for i in data %}
+                        <ul>
+                            <h4>{{i.name}}</h4>
+                            <h4>{{i.price_amount}}$</h4><br>
+                            <button type="button" onclick=myFunction()  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#freeplan" id="myBtn">Select Plan</button>
+                        </ul>
+                      {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="cpl-md-4 col-sm-4 mi-go wow fadeInUp"
-                data-wow-duration="1s" data-wow-delay="0.6s"
-                style="animation-duration:1s; animation-delay:0.6s;
-                animation-name:none;">
-                <div class="goodnesssec buttermilk smbg" style="width: 20rem;">
-                    {% comment %} <a href="#"> {% endcomment %}
-                  <h1>{{ get_premium.planName}}</h1>
-                  <h3>{{ get_premium.price }}</h3>
-                
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#premiumplan">Select Plan</button>
-                
-                </div>
-                
-            </div>
-        </div>
-        <div class="col">
-          <div class="cpl-md-4 col-sm-4 mi-go wow fadeInUp"
-              data-wow-duration="1s" data-wow-delay="0.6s"
-              style="animation-duration:1s; animation-delay:0.6s;
-              animation-name:none;">
-              <div class="goodnesssec buttermilk smbg" style="width: 20rem;">
-                  {% comment %} <a href="#"> {% endcomment %}
-                <h1>{{ get_standard.planName}}</h1>
-                <h3>{{ get_standard.price }}</h3>
-              
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standardplan">Select Plan</button>
-              
-              </div>
-              
           </div>
-      </div>
+        </div>
     </div>
 </div>
 <!--  Free Modal -->
@@ -76,56 +37,40 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h2>planId: {{ get_data.planId }}</h2>
-        <h2>planName: {{ get_data.planName }}</h2>
-         <h2>price: {{ get_data.price }}</h2>
-         </div>
+        {% for i in data %}
+
+        {% comment %} {% if Plan_Id == {{i.id}} %} {% endcomment %}
+          <ul>
+            <h4>Plan_Id:- {{ i.id }}</h4>
+            <h4>Name:- {{i.name}}</h4>
+            <h4>Price:- {{i.price_amount}}$<h3><br>
+          </ul>
+          {% comment %} {% endif %} {% endcomment %}
+        {% endfor %}
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="{% url 'plan' %}"><button type="button" class="btn btn-primary">Buy Now</button></a>
+        <a href="{% url 'checkout' %}"><button type="button" class="btn btn-primary">Buy Now</button></a>
       </div>
     </div>
   </div>
 </div>
-<!--  premium Modal -->
-<div class="modal fade" id="premiumplan" tabindex="-1" aria-labelledby="premiumplanid" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="premiumplanid">Premium plan</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-        <div class="modal-body">
-          <h2>planId: {{ get_premium.planId }}</h2>
-          <h2>planName: {{ get_premium.planName }}</h2>
-            <h2>price: {{ get_premium.price }}</h2>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Buy Now</button>
-        </div>
-    </div>
-  </div>
-</div>
-<!--  Standard Modal -->
-<div class="modal fade" id="standardplan" tabindex="-1" aria-labelledby="standardplanid" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="standardplanid">Standard plan</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <h2>planId: {{ get_standard.planId }}</h2>
-        <h2>planName: {{ get_standard.planName }}</h2>
-         <h2>price: {{ get_standard.price }}</h2>
-         </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Buy Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-{% comment %} <h1>Welcome To Dairy Product site</h1> {% endcomment %}
+
+<script>
+  // Get the modal
+ var modal = document.getElementById("freeplan");
+ console.log("hiii")
+ 
+ // Get the button that opens the modal
+ var btn = document.getElementById("myBtn");
+ 
+ // Get the <span> element that closes the modal
+ var span = document.getElementsByClassName("btn-close")[0];
+
+ function myFunction(){
+  console.log("hiiiiii")
+ }
+
+   </script>
 {% endblock main-content %}
+
