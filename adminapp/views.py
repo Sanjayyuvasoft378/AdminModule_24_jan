@@ -1,7 +1,8 @@
 from django.contrib.auth import views as auth_views
 from django.views import generic
-from django.urls import reverse_lazy
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse, reverse_lazy
+import json
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import LoginForm, RegisterForm
@@ -13,49 +14,95 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-stripe.api_key = settings.STRIPE_PRIVATE_KEY
 YOUR_DOMAIN = 'http://127.0.0.1:8000'
-
-
-class LoginView(auth_views.LoginView):
-    form_class = LoginForm
-    template_name = 'app/login.html'
-
 
 class RegisterView(generic.CreateView):
     form_class = RegisterForm
     template_name = 'app/signup.html'
     success_url = reverse_lazy('login')
+
+class LoginView(auth_views.LoginView):
+    form_class = LoginForm
+    template_name = 'app/login.html'
     
 def logout(request):
     request.session.clear()
     return redirect('login')
 
-
+@login_required
+def HomeView(request):
+    data= []
+    product_data = stripe.Product.list().data
+    for i in product_data:
+        print("ss",i)
+        price_data = stripe.Price.retrieve(id = i.get("default_price"))
+        data.append({"name":i.get("name"), "price_amount":str(price_data.get("unit_amount"))[:2], "currency":price_data.get("currency"),"id":i.get("id"),})
+        print(data,"assssssssssss")
+    return render(request,'app/home.html',{"data":data})
 
 
 
 @csrf_exempt
 def create_checkout_session(request):
- session = stripe.checkout.Session.create(
- payment_method_types=['card'],
- line_items=[{
- 'price_data': {
- 'currency': 'inr',
- 'product_data': {
- 'name': 'Intro to Django Course',
- },
- 'unit_amount': 100,
- },
- 'quantity': 1,
- }],
- mode='payment',
- success_url=YOUR_DOMAIN + '/adminapp/success',
- cancel_url=YOUR_DOMAIN + '/adminapp/cancel.html',
- )
- return JsonResponse({'id': session.id})
+    if request.method == 'GET':
+        domain_url = 'http://localhost:8000/'
+        stripe.api_key = settings.STRIPE_PRIVATE_KEY
+        try:
+            product = stripe.Product.list().data
+            for i in product:   
+                price_data = stripe.Price.retrieve(id = i.get("default_price"))
+                price_amount =str(price_data.get("unit_amount"))        
+                print("&&&&&&&&&&&&",i.name)
+                checkout_session = stripe.checkout.Session.create(
+                success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=domain_url + 'cancelled/',
+                payment_method_types=['card'],
+                mode='payment',
+                line_items=[{
+                    'price_data': {
+                    'currency': 'inr',
+                    'product_data': {
+                    'name': i.name,
+                    },
+                    'unit_amount': price_amount,
+                    },
+                    'quantity': 1,
+                    }]
+                )
+                return JsonResponse({'sessionId': checkout_session['id']})
+                # return render(request,'checkout.html')
+            return JsonResponse({"msg":"error"})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
 
+@csrf_exempt
+def create_checkout_session1(request):
 
+    # request_data = json.loads(request.body)
+    # product = get_object_or_404(Product, id=id)
+    # print("ssssssssssssssssss",product)
+    stripe.api_key = settings.STRIPE_PRIVATE_KEY
+
+    session = stripe.checkout.Session.create(
+    # Customer Email is optional,
+    # It is not safe to accept email directly from the client sside
+    # customer_email = request_data['email'],
+    # payment_method_types=['card'],
+    line_items=[{
+    'price_data': {
+    'currency': 'inr',
+    'product_data': {
+    'name': "product.name",
+    },
+    'unit_amount': 100,
+    },
+    'quantity': 1,
+    }],
+    mode='payment',
+    success_url=YOUR_DOMAIN + '/adminapp/success',
+    cancel_url=YOUR_DOMAIN + '/adminapp/cancel.html',
+    )
+    return JsonResponse({'id': session.id})
 
 #home view
 def home(request):
@@ -76,9 +123,9 @@ class PlanAPI(APIView):
         form = PlanForm(data=request.data)
         if form.is_valid():
             form.save()
-            return render(request, 'app/plan.html',{"form":form})
+            return render(request, 'checkout.html',{"form":form})
         else:
-            return render(request,'app/home.html')
+            return Response({"msg":"sss "})
 
 
 

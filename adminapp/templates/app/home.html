@@ -2,7 +2,6 @@
 {% load static %}
 {% block title %}Home Page{% endblock title %}
 {% block main-content %}
-
 <div class="container" >
     <h2 class="text-center">####Plans####</h2><br><Br>
     <div class  ="row">
@@ -18,7 +17,7 @@
                         <ul>
                             <h4>{{i.name}}</h4>
                             <h4>{{i.price_amount}}$</h4><br>
-                            <button type="button" onclick=myFunction()  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#freeplan" id="myBtn">Select Plan</button>
+                            <button type="button" onclick="myFunction({{i}})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#freeplan" id="myBtn">Select Plan</button>
                         </ul>
                       {% endfor %}
                     </div>
@@ -37,21 +36,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        {% for i in data %}
-
-        {% comment %} {% if Plan_Id == {{i.id}} %} {% endcomment %}
-          <ul>
-            <h4>Plan_Id:- {{ i.id }}</h4>
-            <h4>Name:- {{i.name}}</h4>
-            <h4>Price:- {{i.price_amount}}$<h3><br>
-          </ul>
-          {% comment %} {% endif %} {% endcomment %}
-        {% endfor %}
+         <h4 id="planId"></h4>
+         <h4 id="planName"></h4>
+         <h4 id="planPrice"><h3><br>
       </div>
       <div class="modal-footer">
+       
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <a href="{% url 'checkout' %}"><button type="button" class="btn btn-primary">Buy Now</button></a>
-      </div>
+        </div>
     </div>
   </div>
 </div>
@@ -59,18 +52,20 @@
 <script>
   // Get the modal
  var modal = document.getElementById("freeplan");
- console.log("hiii")
- 
- // Get the button that opens the modal
+ var planId = document.getElementById("planId");
+ var planName = document.getElementById("planName");
+ var planPrice = document.getElementById("planPrice");
+  // Get the button that opens the modal
  var btn = document.getElementById("myBtn");
- 
- // Get the <span> element that closes the modal
+  // Get the <span> element that closes the modal
  var span = document.getElementsByClassName("btn-close")[0];
-
- function myFunction(){
+ function myFunction(i){
+  console.log(i,12333)
   console.log("hiiiiii")
+planId.innerHTML=`planId : ${i.id}`
+planName.innerHTML=`plan name : ${i.name}`
+planPrice.innerHTML=`plan price : ${i.price_amount}$`
  }
-
    </script>
 {% endblock main-content %}
 

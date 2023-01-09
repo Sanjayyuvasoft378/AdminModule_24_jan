@@ -1,4 +1,5 @@
 from django.db import models
+from django.core import validators
 from django.contrib.auth.models import  AbstractUser
 
 # Create your models here.
@@ -8,6 +9,19 @@ class CustomUser(AbstractUser):
     email = models.EmailField(verbose_name='email',
                               max_length=255, unique=True)
     
+
+
+
+# Create your models here.
+class Product(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=70,verbose_name='Product Name')
+    description = models.TextField(max_length=800,verbose_name='Description')
+    price = models.FloatField(verbose_name='Price',validators=[validators.MinValueValidator(50),validators.MaxValueValidator(100000)])    
+
+    
+
+
 class Plan(models.Model):
     planId = models.CharField(max_length=20, unique=True)    
     planName = models.CharField(max_length=100,unique=True)

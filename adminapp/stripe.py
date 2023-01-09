@@ -11,4 +11,5 @@ def HomeView(request):
         print("ss",i)
         price_data = stripe.Price.retrieve(id = i.get("default_price"))
         data.append({"name":i.get("name"), "price_amount":str(price_data.get("unit_amount"))[:2], "currency":price_data.get("currency"),"id":i.get("id"),})
+        print(data,"assssssssssss")
     return render(request,'app/home.html',{"data":data})
