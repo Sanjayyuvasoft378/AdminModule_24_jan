@@ -9,7 +9,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/',views.logout,name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
-    path('home/', views.HomeView, name='home'),
+    path('home/', stripe.HomeView, name='home'),
     # path('category/', CategoryView.as_view(), name='category'),
     # path('stripe_data/',stripe.stripe_data,name='stripe_data'),
     path('plan/',PlanAPI.as_view(),name='plan'),
@@ -17,9 +17,10 @@ urlpatterns = [
     
     
     
-    path('', views.home, name='homes'),
-    path('create-checkout-session/', views.create_checkout_session, name='checkout'),
-    path('success/', views.success,name='success'),
-    path('cancel.html/', views.cancel,name='cancel'),
+    path('', stripe.home, name='homes'),
+    path('create-checkout-session1/', views.create_checkout_session1, name='checkout1'),
+    path('create-checkout-session/', stripe.create_checkout_session, name='checkout'),
+    path('success/', stripe.success,name='success'),
+    path('cancel.html/', stripe.cancel,name='cancel'),
 
 ]

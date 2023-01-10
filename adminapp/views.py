@@ -29,21 +29,21 @@ def logout(request):
     request.session.clear()
     return redirect('login')
 
-@login_required
-def HomeView(request):
-    data= []
-    product_data = stripe.Product.list().data
-    for i in product_data:
-        print("ss",i)
-        price_data = stripe.Price.retrieve(id = i.get("default_price"))
-        data.append({"name":i.get("name"), "price_amount":str(price_data.get("unit_amount"))[:2], "currency":price_data.get("currency"),"id":i.get("id"),})
-        print(data,"assssssssssss")
-    return render(request,'app/home.html',{"data":data})
+# @login_required
+# def HomeView(request):
+#     data= []
+#     product_data = stripe.Product.list().data
+#     for i in product_data:
+#         print("ss",i)
+#         price_data = stripe.Price.retrieve(id = i.get("default_price"))
+#         data.append({"name":i.get("name"), "price_amount":str(price_data.get("unit_amount"))[:2], "currency":price_data.get("currency"),"id":i.get("id"),})
+#         print(data,"assssssssssss")
+#     return render(request,'app/home.html',{"data":data})
 
 
 
 @csrf_exempt
-def create_checkout_session(request):
+def create_checkout_session1(request):
     if request.method == 'GET':
         domain_url = 'http://localhost:8000/'
         stripe.api_key = settings.STRIPE_PRIVATE_KEY
@@ -69,52 +69,15 @@ def create_checkout_session(request):
                     'quantity': 1,
                     }]
                 )
-                return JsonResponse({'sessionId': checkout_session['id']})
-                # return render(request,'checkout.html')
+                # return JsonResponse({'sessionId': checkout_session['id']})
+                return render(request,'checkout.html')
             return JsonResponse({"msg":"error"})
         except Exception as e:
             return JsonResponse({'error': str(e)})
+        
+        
 
-@csrf_exempt
-def create_checkout_session1(request):
 
-    # request_data = json.loads(request.body)
-    # product = get_object_or_404(Product, id=id)
-    # print("ssssssssssssssssss",product)
-    stripe.api_key = settings.STRIPE_PRIVATE_KEY
-
-    session = stripe.checkout.Session.create(
-    # Customer Email is optional,
-    # It is not safe to accept email directly from the client sside
-    # customer_email = request_data['email'],
-    # payment_method_types=['card'],
-    line_items=[{
-    'price_data': {
-    'currency': 'inr',
-    'product_data': {
-    'name': "product.name",
-    },
-    'unit_amount': 100,
-    },
-    'quantity': 1,
-    }],
-    mode='payment',
-    success_url=YOUR_DOMAIN + '/adminapp/success',
-    cancel_url=YOUR_DOMAIN + '/adminapp/cancel.html',
-    )
-    return JsonResponse({'id': session.id})
-
-#home view
-def home(request):
- return render(request,'checkout.html')
-
-#success view
-def success(request):
- return render(request,'success.html')
-
- #cancel view
-def cancel(request):
- return render(request,'cancel.html')
 
 
 
@@ -173,3 +136,18 @@ class PlanAPI(APIView):
 #             return Response({"msg":"data deleted successfully"})
 #         except Exception as e:
 #             return Response({"msg":"Internal server error {}".format(e)})
+
+
+
+
+# @login_required
+# def HomeView(request):
+#     data= []
+#     product_data = stripe.Product.list().data
+#     for i in product_data:
+#         print("ss",i)
+#         price_data = stripe.Price.retrieve(id = i.get("default_price"))
+#         import pdb;pdb.set_trace()
+#         data.append({"name":i.get("name"), "price_amount":str(price_data.get("unit_amount"))[:2], "currency":price_data.get("currency"),"id":i.get("id"),})
+#         print(data,"assssssssssss")
+#     return render(request,'app/home.html',{"data":data})

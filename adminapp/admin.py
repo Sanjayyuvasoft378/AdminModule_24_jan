@@ -22,3 +22,11 @@ class CustomerAdmin(admin.ModelAdmin):
 # @admin.register(Category)
 # class CategoryAdmin(admin.ModelAdmin):
 #     list_display = ['id','categoryName','description','categoryImage']
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['id','name','price']
+    
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['created_at','product_name']

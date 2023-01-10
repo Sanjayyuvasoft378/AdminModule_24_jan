@@ -14,12 +14,22 @@ class CustomUser(AbstractUser):
 
 # Create your models here.
 class Product(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=70,verbose_name='Product Name')
+    # id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=70)
+    price = models.FloatField(null=True)    
     description = models.TextField(max_length=800,verbose_name='Description')
-    price = models.FloatField(verbose_name='Price',validators=[validators.MinValueValidator(50),validators.MaxValueValidator(100000)])    
 
-    
+
+class Payment(models.Model):
+    product_name = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='pro_name')
+    amount = models.ForeignKey(Product,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now=True)
+
+
+
+
+
+
 
 
 class Plan(models.Model):
