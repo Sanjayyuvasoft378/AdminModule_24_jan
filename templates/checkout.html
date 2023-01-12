@@ -11,7 +11,8 @@
 </div>
  <script type="text/javascript">
  // Create an instance of the Stripe object with your publishable API key
- var stripe = Stripe('');
+ {% comment %} write a stripe key in belove line inside teh "Stripe('')" {% endcomment %}
+ var stripe = Stripe('');  
  var checkoutButton = document.getElementById('checkout-button');
 
  checkoutButton.addEventListener('click', function() {

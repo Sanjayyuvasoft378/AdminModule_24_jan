@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path,include
 
 from adminapp.views import *
+from .stripe import *
 from adminapp import views,stripe
 
 
@@ -13,6 +14,7 @@ urlpatterns = [
     # path('category/', CategoryView.as_view(), name='category'),
     # path('stripe_data/',stripe.stripe_data,name='stripe_data'),
     path('plan/',PlanAPI.as_view(),name='plan'),
+    path('PaymentView/',PaymentView,name='PaymentView'),
     
     
     

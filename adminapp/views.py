@@ -50,6 +50,9 @@ def create_checkout_session1(request):
         try:
             product = stripe.Product.list().data
             for i in product:   
+                stripe.Customer.create(
+                description="My First Test Customer (created for API docs at https://www.stripe.com/docs/api)",
+                )
                 price_data = stripe.Price.retrieve(id = i.get("default_price"))
                 price_amount =str(price_data.get("unit_amount"))        
                 print("&&&&&&&&&&&&",i.name)
@@ -76,8 +79,6 @@ def create_checkout_session1(request):
             return JsonResponse({'error': str(e)})
         
         
-
-
 
 
 

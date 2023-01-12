@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.contrib.auth import views as auth_views
 from adminapp import views as core_views  
-
+app_name = 'adminapp'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('adminapp/',include('adminapp.urls')),

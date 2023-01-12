@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0&+-^s14v*^5b874sy$%_l#wmri-5+*i@+w!fg6@wreipapax21111'
+SECRET_KEY = 'django-insecure-0&+-^s14v*^5b874sy$%_l#wmri-5+*i@+w!fg6@wreipapax2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
-    'django.contrib.contenttypess',
+    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -30,9 +30,6 @@ INSTALLED_APPS = [
     'adminapp.apps.AdminappConfig',
     'rest_framework',
     'stripe',
-
-
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -169,6 +166,8 @@ SOCIALACCOUNT_PROVIDERS = {
 
 STRIPE_PUBLIC_KEY = ""
 STRIPE_PRIVATE_KEY = ""
+
+
 
 
 

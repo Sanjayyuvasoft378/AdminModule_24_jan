@@ -27,6 +27,15 @@ class CustomerAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['id','name','price']
     
-@admin.register(Payment)
-class PaymentAdmin(admin.ModelAdmin):
-    list_display = ['created_at','product_name']
+@admin.register(Membership)
+class MembershipAdmin(admin.ModelAdmin):
+    list_display = ['slug','membership_type','price','stripe_plan_id']
+    
+@admin.register(UserMembership)
+class UserMembershipAdmin(admin.ModelAdmin):
+    list_display = ['user','stripe_customer_id','membership']
+    
+    
+@admin.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = ['user_membership','stripe_subscription_id','active']
