@@ -7,17 +7,27 @@ from django.contrib.auth.models import User
 class UserAdmin(admin.ModelAdmin):
     list_display = ['id','email','username','password']
 
-@admin.register(Plan)
-class PlanAdmin(admin.ModelAdmin):
-    list_display = ['planId','planName','price']
-    
-@admin.register(CustomerModel)
-class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['username','email','password','confirm_password','address']
+
+
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['user_id','subscription_id','created_at','product_name','amount_subtotal','payment_status']
+
 
 # @admin.register(CustomUser)
 # class Useradmin(admin.ModelAdmin):
 #     list_display = ['username','email','password','confirm_password']
+
+
+
+# @admin.register(Plan)
+# class PlanAdmin(admin.ModelAdmin):
+#     list_display = ['planId','planName','price']
+    
+# @admin.register(CustomerModel)
+# class CustomerAdmin(admin.ModelAdmin):
+#     list_display = ['username','email','password','confirm_password','address']
+
 
 # @admin.register(Category)
 # class CategoryAdmin(admin.ModelAdmin):

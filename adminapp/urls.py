@@ -22,7 +22,7 @@ urlpatterns = [
     path('', stripe.home, name='homes'),
     path('create-checkout-session1/', views.create_checkout_session1, name='checkout1'),
     path('create-checkout-session/', stripe.create_checkout_session, name='checkout'),
-    path('success/', stripe.success,name='success'),
+    path('success', stripe.success,name='success'),
     path('cancel.html/', stripe.cancel,name='cancel'),
 
 ]

@@ -8,6 +8,7 @@ from .models import *
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import  api_view
 
 YOUR_DOMAIN = 'http://127.0.0.1:8000'
 stripe.api_key = settings.STRIPE_PRIVATE_KEY
@@ -25,7 +26,6 @@ def HomeView(request):
         obj.active = i.active
         obj.save()
         data.append({"name":i.get("name"), "price_amount":price_,"price_id":i.get("default_price"),"id":i.get("id"),})
-        
     return render(request,'app/home.html',{"data":data})
     
 #home view
@@ -33,15 +33,34 @@ def home(request):
  return render(request,'checkout.html')
 
 #success view
+@api_view(["GET"])
 def success(request):
- return render(request,'success.html')
+    print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+    # session  stripe.checkout.Session.retrieve(request.POST.get('session_id'))
+    # customer = stripe.Customer.retrieve(session.customer)
+    print(request.GET.get('session_id'))
+    breakpoint()
+    session = stripe.checkout.Session.retrieve(request.GET.get('session_id'))
+    # customer = stripe.Customer.retrieve(session.customer)
+    Payment.objects.create(
+        user_id = CustomUser.objects.filter(customer_stripe_id= session.customer).first(),
+        amount_subtotal = session.amount_total,
+        payment_status = session.payment_status,
+    )
+    print("HHHHHHHHHHHHHHHHHHHHH")
+    return render(request,'success.html')
 
  #cancel view
 def cancel(request):
+
  return render(request,'cancel.html')
 
 @csrf_exempt
 def create_checkout_session(request):
+    # data = request.user
+    # objects = CustomUser.objects.filter(id = user.id).first()
+    # customer = objects.customer_stripe_id 
+
     stripe.api_key = settings.STRIPE_PRIVATE_KEY
     for i in products.data:
         price_data = [x for x in price.data if x.product == i.id][0]
@@ -51,19 +70,14 @@ def create_checkout_session(request):
         session = stripe.checkout.Session.create(
         line_items=[
             {
-                'price_data': {
-                'currency': 'inr',
-                'product_data':
-                    {
-                    'name': i.name,
-                    },
-                    'unit_amount':100,
-                },
+                      "price": request.GET.get("price_id", "price_1MQTWPSAZLmnjHWewW7w9EUO"),
                     'quantity': 1,
             }
                 ],
         mode='payment',
-        success_url=YOUR_DOMAIN + '/adminapp/success',
+        customer = "cus_NAraKmrnOIh9Xn", # customer
+
+        success_url=YOUR_DOMAIN + '/adminapp/success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url=YOUR_DOMAIN + '/adminapp/cancel',
         )
         stripe.api_key = 'sk_test_51LzfBbSAZLmnjHWeDGXSx3IQ67IAE0lYXHG0LUCcYg6kfb8PwaU9L039v68KBMQ20rezh3bphfrVuI1EjBtfdzmd00Zqo5WfNB'
@@ -71,7 +85,6 @@ def create_checkout_session(request):
             email = request.user.email,
             source = request.POST.get('stripeToken')
         )
-        
     return JsonResponse({'id': session.id,'customer':customer})
 
 
