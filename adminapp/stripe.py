@@ -91,7 +91,7 @@ def create_checkout_session(request):
         customer = "cus_NAraKmrnOIh9Xn", # customer
 
         )
-        stripe.api_key = 'sk_test_51LzfBbSAZLmnjHWeDGXSx3IQ67IAE0lYXHG0LUCcYg6kfb8PwaU9L039v68KBMQ20rezh3bphfrVuI1EjBtfdzmd00Zqo5WfNB'
+        stripe.api_key = ''
         customer = stripe.Customer.create(
             email = request.user.email,
             source = request.POST.get('stripeToken')
