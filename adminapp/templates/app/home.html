@@ -44,11 +44,13 @@
       <div class="modal-footer">
        
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="{% url 'homes'  %}?price_id=price_1MQTWPSAZLmnjHWewW7w9EUO"><button type="button" class="btn btn-primary">Buy Now</button></a>
+        {% comment %} <a href="{% url 'homes'  %}?price_id={{ price_id }}"><button type="button" class="btn btn-primary">Buy Now</button></a> {% endcomment %}
+        <a href="{% url 'homes'  %}?price_id=price_1MQwl8SAZLmnjHWeB64BPTXn"><button type="button" class="btn btn-primary">Buy Now</button></a>
+        {% comment %} <a href="{% url 'homes' price_id={{price_id}} %}"><button type="button" class="btn btn-primary">Buy Now</button></a> {% endcomment %}
         </div>
     </div>
   </div>
-</div>
+</div>  
 
 <script>
   // Get the modal

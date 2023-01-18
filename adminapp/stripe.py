@@ -35,20 +35,30 @@ def home(request):
 #success view
 @api_view(["GET"])
 def success(request):
-    print("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
     # session  stripe.checkout.Session.retrieve(request.POST.get('session_id'))
     # customer = stripe.Customer.retrieve(session.customer)
     print(request.GET.get('session_id'))
-    breakpoint()
     session = stripe.checkout.Session.retrieve(request.GET.get('session_id'))
     # customer = stripe.Customer.retrieve(session.customer)
     Payment.objects.create(
         user_id = CustomUser.objects.filter(customer_stripe_id= session.customer).first(),
-        amount_subtotal = session.amount_total,
+        amount_subtotal = session.amount_total/100,
         payment_status = session.payment_status,
+        subscription_id = session.subscription,
     )
-    print("HHHHHHHHHHHHHHHHHHHHH")
-    return render(request,'success.html')
+    subscription = stripe.Subscription.create(
+    customer="cus_NAraKmrnOIh9Xn", #CustomUser.objects.filter(customer_stripe_id = session.customer).first(),
+    items=[
+        {"price": "price_1MQwl8SAZLmnjHWeB64BPTXn"},
+    ],
+    )
+    
+
+    # subscription =stripe.Subscription.retrieve(
+    # "sub_1MRC6SSAZLmnjHWeKg1l3yqy",
+    # )
+    
+    return render(request,'success.html',{"subscription":subscription})
 
  #cancel view
 def cancel(request):
@@ -68,17 +78,18 @@ def create_checkout_session(request):
         print(price_)
         # user_id = i.id
         session = stripe.checkout.Session.create(
-        line_items=[
-            {
-                      "price": request.GET.get("price_id", "price_1MQTWPSAZLmnjHWewW7w9EUO"),
-                    'quantity': 1,
-            }
-                ],
-        mode='payment',
-        customer = "cus_NAraKmrnOIh9Xn", # customer
-
         success_url=YOUR_DOMAIN + '/adminapp/success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url=YOUR_DOMAIN + '/adminapp/cancel',
+        payment_method_types= ['card'],
+        mode='subscription',
+        line_items=[
+            {
+            "price": request.GET.get("price_id", "price_1MQwl8SAZLmnjHWeB64BPTXn"),
+            'quantity': 1,
+            }
+                ],
+        customer = "cus_NAraKmrnOIh9Xn", # customer
+
         )
         stripe.api_key = 'sk_test_51LzfBbSAZLmnjHWeDGXSx3IQ67IAE0lYXHG0LUCcYg6kfb8PwaU9L039v68KBMQ20rezh3bphfrVuI1EjBtfdzmd00Zqo5WfNB'
         customer = stripe.Customer.create(
@@ -86,9 +97,6 @@ def create_checkout_session(request):
             source = request.POST.get('stripeToken')
         )
     return JsonResponse({'id': session.id,'customer':customer})
-
-
-
 
 def user_membership(request):
     user_membership_qs = UserMembership.objects.filter(user=request.user)

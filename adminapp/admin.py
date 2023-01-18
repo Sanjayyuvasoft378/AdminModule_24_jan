@@ -5,15 +5,16 @@ from django.contrib.auth.models import User
 
 @admin.register(CustomUser)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['id','email','username','password']
+    list_display = ['id','email','username','customer_stripe_id','subscription_id']
+
 
 
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ['user_id','subscription_id','created_at','product_name','amount_subtotal','payment_status']
+    list_display = ['user_id','created_at','amount_subtotal','payment_status','subscription_id']
 
-
+#,'product_name'
 # @admin.register(CustomUser)
 # class Useradmin(admin.ModelAdmin):
 #     list_display = ['username','email','password','confirm_password']

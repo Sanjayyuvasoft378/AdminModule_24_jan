@@ -10,21 +10,25 @@ from django.contrib.auth.models import  AbstractUser
 
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(verbose_name='email',
-                              max_length=255,null=True,blank=True)
-
+    email = models.EmailField(
+        verbose_name='email',
+        max_length=255,
+        null=True,blank=True
+        )
     customer_stripe_id = models.CharField(
         max_length = 50,
         null = True, blank = True
     )
-
     name = models.CharField(max_length=20,
         blank = True,
         null = True
     )
-
+    subscription_id = models.CharField(max_length=20,
+        blank = True,
+        null = True
+    )
     def __str__(self):
-        return self.customer_stripe_id
+        return self.email
 
 
 class Product(models.Model):
@@ -33,6 +37,8 @@ class Product(models.Model):
     price = models.FloatField(null=True,blank=True)    
     description = models.TextField(max_length=800,verbose_name='Description',null=True,blank=True)
 
+    def __str__(self):
+        return self.name
 
 
 
@@ -44,13 +50,17 @@ class Subscriber(models.Model):
 
 class Payment(models.Model):
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE,null=True,blank=True)
-    subscription_id = models.ForeignKey(Subscriber,on_delete=models.CASCADE,null=True,blank=True)
-    product_name = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='pro_name',null=True,blank=True)
     amount_subtotal = models.CharField(max_length = 500,null=True,blank=True)
+    subscription_id = models.CharField(max_length = 500,null=True,blank=True) #ForeignKey(Subscriber,on_delete=models.CASCADE,null=True,blank=True)
     created_at = models.DateTimeField(auto_now=True,null=True,blank=True)
     payment_status = models.CharField(max_length = 25,null= True, blank = True)
 
 
+
+
+
+
+    product_name = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='pro_name',null=True,blank=True)
 
 
 
