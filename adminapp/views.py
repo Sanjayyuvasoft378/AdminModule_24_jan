@@ -30,6 +30,10 @@ def logout(request):
     request.session.clear()
     return redirect('login')
 
+
+
+
+
 # @login_required
 # def HomeView(request):
 #     data= []

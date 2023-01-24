@@ -28,7 +28,7 @@ class CustomUser(AbstractUser):
         null = True
     )
     def __str__(self):
-        return self.email
+        return self.customer_stripe_id
 
 
 class Product(models.Model):
@@ -43,10 +43,6 @@ class Product(models.Model):
 
 
 
-class Subscriber(models.Model):
-    subscription_id = models.CharField(max_length=20,null=True,blank=True)
-    name = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True,blank=True)
-
 
 class Payment(models.Model):
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE,null=True,blank=True)
@@ -59,7 +55,11 @@ class Payment(models.Model):
 
 
 
+####Comments #################################################################
 
+class Subscriber(models.Model):
+    subscription_id = models.CharField(max_length=20,null=True,blank=True)
+    name = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True,blank=True)
     product_name = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='pro_name',null=True,blank=True)
 
 

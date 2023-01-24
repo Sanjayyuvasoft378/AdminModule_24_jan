@@ -1,4 +1,4 @@
-const stripe = Stripe('pk_test_51LzfBbSAZLmnjHWef08IIM3sK2vlbQxgiRpZnCB3KX3hjgizyDoGjgewp6YW9FRWRIIwlvjrG5Dd39KElDEWuqDg00JliEVqEd');
+const stripe = Stripe('');
 const options = {
     clientSecret: '{{CLIENT_SECRET}}',
     // Fully customizable with appearance API.

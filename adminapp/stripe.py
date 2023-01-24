@@ -46,19 +46,26 @@ def success(request):
         payment_status = session.payment_status,
         subscription_id = session.subscription,
     )
+    
+    payment_method = stripe.PaymentMethod.attach(
+    "pm_1MRC6RSAZLmnjHWe0ikFDjzW",
+    customer="cus_NAraKmrnOIh9Xn",
+    )
+    
     subscription = stripe.Subscription.create(
-    customer="cus_NAraKmrnOIh9Xn", #CustomUser.objects.filter(customer_stripe_id = session.customer).first(),
+    customer="cus_NAraKmrnOIh9Xn", 
     items=[
-        {"price": "price_1MQwl8SAZLmnjHWeB64BPTXn"},
+        {"price": "price_1MRXxcSAZLmnjHWebTjm4oJU"},
     ],
     )
     
-
+    
+    
     # subscription =stripe.Subscription.retrieve(
     # "sub_1MRC6SSAZLmnjHWeKg1l3yqy",
     # )
     
-    return render(request,'success.html',{"subscription":subscription})
+    return render(request,'success.html',{"subscription":subscription,"payment_method":payment_method})
 
  #cancel view
 def cancel(request):
@@ -81,22 +88,57 @@ def create_checkout_session(request):
         success_url=YOUR_DOMAIN + '/adminapp/success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url=YOUR_DOMAIN + '/adminapp/cancel',
         payment_method_types= ['card'],
+        # default_payment_method = ['card'],
         mode='subscription',
         line_items=[
             {
-            "price": request.GET.get("price_id", "price_1MQwl8SAZLmnjHWeB64BPTXn"),
+            "price": request.GET.get("price_id", "price_1MRXxcSAZLmnjHWebTjm4oJU"),
             'quantity': 1,
             }
                 ],
-        customer = "cus_NAraKmrnOIh9Xn", # customer
+        customer = "cus_NAraKmrnOIh9Xn", #customer
 
         )
-        stripe.api_key = ''
+        stripe.api_key = settings.STRIPE_PRIVATE_KEY
         customer = stripe.Customer.create(
             email = request.user.email,
             source = request.POST.get('stripeToken')
         )
     return JsonResponse({'id': session.id,'customer':customer})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def user_membership(request):
     user_membership_qs = UserMembership.objects.filter(user=request.user)
