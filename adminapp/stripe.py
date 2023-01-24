@@ -46,38 +46,17 @@ def success(request):
         payment_status = session.payment_status,
         subscription_id = session.subscription,
     )
-    
-    payment_method = stripe.PaymentMethod.attach(
-    "pm_1MRC6RSAZLmnjHWe0ikFDjzW",
-    customer="cus_NAraKmrnOIh9Xn",
-    )
-    
-    subscription = stripe.Subscription.create(
-    customer="cus_NAraKmrnOIh9Xn", 
-    items=[
-        {"price": "price_1MRXxcSAZLmnjHWebTjm4oJU"},
-    ],
-    )
-    
-    
-    
-    # subscription =stripe.Subscription.retrieve(
-    # "sub_1MRC6SSAZLmnjHWeKg1l3yqy",
-    # )
-    
-    return render(request,'success.html',{"subscription":subscription,"payment_method":payment_method})
+    return render(request,'success.html')
 
  #cancel view
 def cancel(request):
-
- return render(request,'cancel.html')
+    return render(request,'cancel.html')
 
 @csrf_exempt
 def create_checkout_session(request):
     # data = request.user
     # objects = CustomUser.objects.filter(id = user.id).first()
     # customer = objects.customer_stripe_id 
-
     stripe.api_key = settings.STRIPE_PRIVATE_KEY
     for i in products.data:
         price_data = [x for x in price.data if x.product == i.id][0]
@@ -87,8 +66,8 @@ def create_checkout_session(request):
         session = stripe.checkout.Session.create(
         success_url=YOUR_DOMAIN + '/adminapp/success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url=YOUR_DOMAIN + '/adminapp/cancel',
-        payment_method_types= ['card'],
-        # default_payment_method = ['card'],
+        # payment_method_types= ['card'],
+        #default_payment_method = ['card'],
         mode='subscription',
         line_items=[
             {
@@ -97,7 +76,6 @@ def create_checkout_session(request):
             }
                 ],
         customer = "cus_NAraKmrnOIh9Xn", #customer
-
         )
         stripe.api_key = settings.STRIPE_PRIVATE_KEY
         customer = stripe.Customer.create(
