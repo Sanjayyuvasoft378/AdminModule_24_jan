@@ -9,12 +9,12 @@ class AdminappConfig(AppConfig):
     
     
     # normal user
-#   sanjayyuvasoft378
-#   Sanju1411
+#   sanjayyuvasofttt378
+#   Sanju111411
 
 
-# superuser -- sanjay123
-#   superuser   sanju1411
+# superuser -- sanjay11123
+#   superuser   sanju111411
 
 
     # payment_method = stripe.PaymentMethod.attach(
