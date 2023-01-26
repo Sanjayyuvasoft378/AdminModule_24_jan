@@ -37,8 +37,8 @@ class Product(models.Model):
     price = models.FloatField(null=True,blank=True)    
     description = models.TextField(max_length=800,verbose_name='Description',null=True,blank=True)
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 
 

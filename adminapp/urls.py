@@ -13,6 +13,7 @@ urlpatterns = [
     path('logout/',views.logout,name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
     path('homes/', stripe.home, name='homes'),
+    # path('homes/<str:price_id>', stripe.home, name='homes'),
     path('create-checkout-session/', stripe.create_checkout_session, name='checkout'),
     path('success', stripe.success,name='success'),
     path('cancel.html/', stripe.cancel,name='cancel'),

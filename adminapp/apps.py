@@ -24,9 +24,4 @@ class AdminappConfig(AppConfig):
 
 
 
-    # subscription = stripe.Subscription.create(
-    # customer="cus_NAraKmrnOIh9Xn", 
-    # items=[
-    #     {"price": "price_1MRXxcSAZLmnjHWebTjm4oJU"},
-    # ],
-    # )
+   

@@ -39,6 +39,7 @@ def success(request):
     # customer = stripe.Customer.retrieve(session.customer)
     print(request.GET.get('session_id'))
     session = stripe.checkout.Session.retrieve(request.GET.get('session_id'))
+    import pdb;pdb.set_trace()
     # customer = stripe.Customer.retrieve(session.customer)
     Payment.objects.create(
         user_id = CustomUser.objects.filter(customer_stripe_id= session.customer).first(),
@@ -46,7 +47,13 @@ def success(request):
         payment_status = session.payment_status,
         subscription_id = session.subscription,
     )
-    return render(request,'success.html')
+    # subscription = stripe.Subscription.create(
+    # customer=session.customer, 
+    # items=[
+    #     {"price": "price_1MRXxcSAZLmnjHWebTjm4oJU"},
+    # ],
+    # )
+    return render(request,'success.html') #,{"subscription":subscription})
 
  #cancel view
 def cancel(request):
@@ -54,9 +61,17 @@ def cancel(request):
 
 @csrf_exempt
 def create_checkout_session(request):
-    # data = request.user
-    # objects = CustomUser.objects.filter(id = user.id).first()
-    # customer = objects.customer_stripe_id 
+    data = request.user
+    objects = CustomUser.objects.filter(id = data.id).first()
+    if objects.customer_stripe_id :
+        customer = objects.customer_stripe_id 
+    else:
+        customer = stripe.Customer.create(
+            email = request.user.email,
+            source = request.POST.get('stripeToken')
+        )
+        objects.customer_stripe_id = customer.id
+        objects.save()
     stripe.api_key = settings.STRIPE_PRIVATE_KEY
     for i in products.data:
         price_data = [x for x in price.data if x.product == i.id][0]
@@ -66,22 +81,17 @@ def create_checkout_session(request):
         session = stripe.checkout.Session.create(
         success_url=YOUR_DOMAIN + '/adminapp/success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url=YOUR_DOMAIN + '/adminapp/cancel',
-        # payment_method_types= ['card'],
-        #default_payment_method = ['card'],
+        payment_method_types= ['card'],
         mode='subscription',
         line_items=[
             {
             "price": request.GET.get("price_id", "price_1MRXxcSAZLmnjHWebTjm4oJU"),
             'quantity': 1,
             }
-                ],
-        customer = "cus_NAraKmrnOIh9Xn", #customer
+        ],
+        customer = customer
         )
         stripe.api_key = settings.STRIPE_PRIVATE_KEY
-        customer = stripe.Customer.create(
-            email = request.user.email,
-            source = request.POST.get('stripeToken')
-        )
     return JsonResponse({'id': session.id,'customer':customer})
 
 
